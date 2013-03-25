@@ -1,51 +1,61 @@
-var numbers           = require('numbers')
-  , Table             = require('easy-table')
-  , gunRates          = require('./data/gun_rates.json')
-  , homicideRates     = require('./data/homicide_rates.json')
-  , povertyRates      = require('./data/poverty_rates.json')
-  , populationDensity = require('./data/population_density.json')
-  , housingIndex      = require('./data/housing_cost_index.json')
-  , states            = []
+var numbers = require('numbers')
+  , Table   = require('easy-table')
+  , states  = require('./data/states')
+  , data    = {}
+  , groups   = [
+      'alcohol_use',
+      'gun_ownership',
+      'homicide',
+      'housing_cost_index',
+      'illicit_drug_use',
+      'poverty',
+      'population_density'
+    ]
   ;
 
-for (var state in gunRates) {
-  states.push({
-    state: state,
-    guns: gunRates[state],
-    homicides: homicideRates[state],
-    poverty: povertyRates[state],
-    density: populationDensity[state],
-    housing: housingIndex[state]
+groups.forEach(function(group) {
+  var numbers = require('./data/' + group + '.json');
+  data[group] = numbers;
+});
+
+states = states.map(function(name) {
+  state = {
+    state: name
+  };
+
+  groups.forEach(function(group) {
+    state[group] = data[group][name];
   });
-}
+
+  return state;
+});
 
 var t = new Table();
 
 states.sort(function(a, b) {
-  var key = 'guns';
+  var key = 'homicide';
   return b[key] - a[key];
 });
 
+function addPipe(str) {
+  return '| ' + str;
+}
+
 states.forEach(function(state) {
   t.cell('state', state.state);
-  t.cell('guns owners', state.guns.toFixed(1));
-  t.cell('homicides', state.homicides.toFixed(1));
-  t.cell('poverty', state.poverty.toFixed(1));
-  t.cell('density', state.density.toFixed(1));
-  t.cell('housing', state.housing.toFixed(1));
+  groups.forEach(function(group) {
+    t.cell(addPipe(group.replace(/_/g, ' ')), state[group].toFixed(1), addPipe);
+  });
   t.newRow();
 });
 
-var gunsArr     = states.map(function(state) { return state.guns });
-var homicideArr = states.map(function(state) { return state.homicides });
-var povertyArr  = states.map(function(state) { return state.poverty });
-var densityArr  = states.map(function(state) { return state.density });
-var housingArr  = states.map(function(state) { return state.housing });
+groups.forEach(function(group) {
+  if (group === 'homicide') return;
+  var homicideArr = states.map(function(state) { return state.homicide });
+  var otherArr = states.map(function(state) { return state[group] });
+  console.log(group.replace(/_/g, ' ') + ' to homicide:', numbers.statistic.correlation(otherArr, homicideArr));
+  console.log();
+});
 
-console.log('guns to homicide:', numbers.statistic.correlation(gunsArr, homicideArr));
-console.log('poverty to homicide:', numbers.statistic.correlation(povertyArr, homicideArr));
-console.log('density to homicide:', numbers.statistic.correlation(densityArr, homicideArr));
-console.log('housing cost to homicide:', numbers.statistic.correlation(housingArr, homicideArr));
-console.log();
 console.log(t.toString());
 
