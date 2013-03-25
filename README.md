@@ -1,5 +1,3 @@
-poverty to density: 0.3940436424894121
-
 guns to homicide: -0.27181323265076685
 
 poverty to homicide: 0.588239156159553
