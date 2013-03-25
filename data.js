@@ -26,8 +26,6 @@ states.sort(function(a, b) {
   return b[key] - a[key];
 });
 
-console.log(states);
-
 states.forEach(function(state) {
   t.cell('state', state.state);
   t.cell('guns owners', state.guns.toFixed(1));
@@ -38,18 +36,16 @@ states.forEach(function(state) {
   t.newRow();
 });
 
-console.log(t.toString());
-
 var gunsArr     = states.map(function(state) { return state.guns });
 var homicideArr = states.map(function(state) { return state.homicides });
 var povertyArr  = states.map(function(state) { return state.poverty });
 var densityArr  = states.map(function(state) { return state.density });
 var housingArr  = states.map(function(state) { return state.housing });
 
-console.log('poverty to density:', numbers.statistic.correlation(povertyArr, densityArr));
-
 console.log('guns to homicide:', numbers.statistic.correlation(gunsArr, homicideArr));
 console.log('poverty to homicide:', numbers.statistic.correlation(povertyArr, homicideArr));
 console.log('density to homicide:', numbers.statistic.correlation(densityArr, homicideArr));
 console.log('housing cost to homicide:', numbers.statistic.correlation(housingArr, homicideArr));
+console.log();
+console.log(t.toString());
 

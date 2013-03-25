@@ -1,3 +1,13 @@
+poverty to density: 0.3940436424894121
+
+guns to homicide: -0.27181323265076685
+
+poverty to homicide: 0.588239156159553
+
+density to homicide: 0.7276184799101132
+
+housing cost to homicide: 0.20194776302126444
+
 | state               | guns owners| homicides| poverty| density| housing
 | --------------------| -----------| ---------| -------| -------| -------
 | Wyoming             | 59.7       | 2.4      | 9.0    | 5.9    | 280.1  
@@ -52,8 +62,3 @@
 | Hawaii              | 6.7        | 1.7      | 18.0   | 214.1  | 174.7  
 | District Of Columbia| 0.0        | 21.9     | 23.1   | 10065.0| 333.7  
 
-  poverty to density: 0.3940436424894121
-  guns to homicide: -0.27181323265076685
-  poverty to homicide: 0.588239156159553
-  density to homicide: 0.7276184799101132
-  housing cost to homicide: 0.20194776302126444
