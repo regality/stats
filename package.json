@@ -1,0 +1,17 @@
+{
+  "name": "stats",
+  "version": "0.0.0",
+  "description": "Correlating data",
+  "main": "data.js",
+  "dependencies": {
+    "easy-table": "~0.2.0",
+    "numbers": "~0.4.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:regality/state.git"
+  },
+  "author": "Adam Blackburn",
+  "license": "MIT"
+}
